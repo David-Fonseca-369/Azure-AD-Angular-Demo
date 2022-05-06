@@ -5,6 +5,7 @@ import { Profile } from './profile.model';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 const GRAPH_ENDPOINT_PIC = 'https://graph.microsoft.com/v1.0/me/photo/$value';
+const REPORTS_API_BASE_URI = 'https://localhost:44392/'
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,14 @@ export class AzureAdDemoService {
       {
         responseType: 'blob'
       });
+  }
+
+  getReport()
+  {
+    return this.httpClient.get(REPORTS_API_BASE_URI + 'api/Report/GetReport', {responseType: 'blob'})
+  }
+
+  getReportStatus(){
+    return this.httpClient.get<any>(REPORTS_API_BASE_URI + 'api/Report/GetReportStatus')
   }
 }

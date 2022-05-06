@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
+import {ReportComponent} from './report/report.component';
 
 //MSAL
 import {MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent} from '@azure/msal-angular';
@@ -23,6 +24,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import { AzureAdDemoService } from './azure-ad-demo.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const isIE = window.navigator.userAgent.indexOf('MSIE')> -1 || window.navigator.userAgent.indexOf('Trident/') >-1
@@ -30,10 +34,12 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')> -1 || window.navigator.
   declarations: [
     AppComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     MatToolbarModule,
@@ -41,6 +47,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')> -1 || window.navigator.
     MatCardModule,
     MatListModule,
     MatDividerModule,
+    MatSnackBarModule,
+
     MsalModule.forRoot(new PublicClientApplication(
       {
         auth:{
@@ -64,7 +72,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE')> -1 || window.navigator.
       interactionType: InteractionType.Redirect,
       protectedResourceMap: new Map(
         [
-          ['https://graph.microsoft.com/v1.0/me', ['user.Read']]
+          ['https://graph.microsoft.com/v1.0/me', ['user.Read']],
+          ['localhost', ['api://28aee8bd-517f-4ab5-bc6e-0f0baa3aabce/api.scope']] //Backend api scope en exponsed api 
         ]        
       )
     }),
